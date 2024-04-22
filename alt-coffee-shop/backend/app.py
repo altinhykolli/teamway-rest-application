@@ -44,10 +44,6 @@ def index():
 def employees_page():
     return render_template('employees.html')
 
-@app.route('/crud')
-def crud():
-    return render_template('crud.html')
-
 @app.route('/employees', methods=['GET'])
 def get_employees():
     employees = mongo.db.employees.find().sort('shift', 1)
