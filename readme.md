@@ -16,17 +16,17 @@ To run this application locally, follow these steps:
     pip install -r requirements.txt
     ```
 
-3. **Testing**
+3. **Set Up MongoDB**: 
+    - Install MongoDB on your system if you haven't already.
+    - Start MongoDB server locally.
+
+4. **Testing**
 
     To run the tests, execute the following command:
 
     ```bash
     python test.py
     ```
-
-4. **Set Up MongoDB**: 
-    - Install MongoDB on your system if you haven't already.
-    - Start MongoDB server locally.
 
 5. **Seed the Database**: 
     ```bash
