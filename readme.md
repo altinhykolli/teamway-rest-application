@@ -16,21 +16,29 @@ To run this application locally, follow these steps:
     pip install -r requirements.txt
     ```
 
-3. **Set Up MongoDB**: 
+3. **Testing**
+
+    To run the tests, execute the following command:
+
+    ```bash
+    python test.py
+    ```
+
+4. **Set Up MongoDB**: 
     - Install MongoDB on your system if you haven't already.
     - Start MongoDB server locally.
 
-4. **Seed the Database**: 
+5. **Seed the Database**: 
     ```bash
     python seed.py
     ```
 
-5. **Run the Application**: 
+6. **Run the Application**: 
     ```bash
     python app.py
     ```
 
-6. **Access the Application**: 
+7. **Access the Application**: 
     Open your web browser and navigate to `http://localhost:5000`.
 
 ## Application Structure
@@ -46,10 +54,3 @@ To run this application locally, follow these steps:
 Flask: Web framework for building the application.
 MongoDB: NoSQL database for storing employee data.
 Flask-PyMongo: Flask extension for interacting with MongoDB.
-
-## Testing
-
-To run the tests, execute the following command:
-
-```bash
-python test.py
