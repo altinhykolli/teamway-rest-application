@@ -11,7 +11,10 @@ To run this application locally, follow these steps:
     git clone https://github.com/altinhykolli/teamway-rest-application
     ```
 
-2. **Install Dependencies**: 
+2. **Install pipreqs and then install Dependencies**: 
+    ```bash
+    pip install pipreqs
+    ```
     ```bash
     pip install -r requirements.txt
     ```
@@ -44,7 +47,7 @@ To run this application locally, follow these steps:
 
 8. **Test API Endpoints with Swagger UI**
 
-    - Open your web browser and navigate to `http://localhost:5000/apidocs`.
+    - Open your web browser and navigate to `http://localhost:5000/api/docs`.
 
 ## Application Structure
 
@@ -59,3 +62,4 @@ To run this application locally, follow these steps:
 Flask: Web framework for building the application.
 MongoDB: NoSQL database for storing employee data.
 Flask-PyMongo: Flask extension for interacting with MongoDB.
+SwaggerUI : Visualizes and interacts with API resources.
