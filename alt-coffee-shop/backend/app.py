@@ -3,11 +3,167 @@ from flask import Flask, render_template, jsonify, request
 from flask_pymongo import PyMongo
 from collections import defaultdict
 from bson import ObjectId
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask('Alt Coffee Shop',)
 
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/alt_coffee_shop'
 mongo = PyMongo(app)
+
+SWAGGER_URL = '/api/docs'
+API_URL = '/swagger.json'
+
+@app.route(API_URL)
+def swagger_json():
+    swagger_data = {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Alt Coffee Shop API",
+            "description": "API documentation for managing employees' shifts at Alt Coffee Shop",
+            "version": "1.0.0"
+        },
+        "paths": {
+            "/employees": {
+                "get": {
+                    "summary": "Get all employees",
+                    "responses": {
+                        "200": {
+                            "description": "List of employees",
+                            "content": {
+                                "application/json": {
+                                    "example": [{"name": "John", "shift": "08:00 to 16:00"}]
+                                }
+                            }
+                        }
+                    }
+                },
+                "post": {
+                    "summary": "Add a new employee",
+                    "requestBody": {
+                        "required": True,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {"type": "string"},
+                                        "shift": {"type": "string"}
+                                    },
+                                    "required": ["name", "shift"]
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "Employee added successfully"
+                        },
+                        "400": {
+                            "description": "Bad request"
+                        }
+                    }
+                }
+            },
+            "/employees/{id}": {
+                "get": {
+                    "summary": "Get an employee by ID",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "required": True,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Employee found",
+                            "content": {
+                                "application/json": {
+                                    "example": {"name": "John", "shift": "08:00 to 16:00"}
+                                }
+                            }
+                        },
+                        "404": {
+                            "description": "Employee not found"
+                        }
+                    }
+                },
+                "put": {
+                    "summary": "Update an employee by ID",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "required": True,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ],
+                    "requestBody": {
+                        "required": True,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {"type": "string"},
+                                        "shift": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Employee updated successfully"
+                        },
+                        "400": {
+                            "description": "Bad request"
+                        },
+                        "404": {
+                            "description": "Employee not found"
+                        }
+                    }
+                },
+                "delete": {
+                    "summary": "Delete an employee by ID",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "required": True,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Employee deleted successfully"
+                        },
+                        "404": {
+                            "description": "Employee not found"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return jsonify(swagger_data)
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Alt Coffee Shop API"
+    }
+)
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 class Employee:
     def __init__(self, name, shift):
