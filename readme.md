@@ -39,7 +39,12 @@ To run this application locally, follow these steps:
     ```
 
 7. **Access the Application**: 
-    Open your web browser and navigate to `http://localhost:5000`.
+    - Open your web browser and navigate to `http://localhost:5000`.
+
+
+8. **Test API Endpoints with Swagger UI**
+
+    - Open your web browser and navigate to `http://localhost:5000/apidocs`.
 
 ## Application Structure
 
